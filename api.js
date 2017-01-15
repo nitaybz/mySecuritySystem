@@ -7,7 +7,7 @@ module.exports = function(app) {
 
     app.get('/alarm/check', function(req, res) {
             var statusNow = app.storage.getItem("alarm");
-            res.send('"' + statusNow + '"');
+            res.send(statusNow);
     })
 
     app.get('/alarm/arm/:state', function(req, res) {
