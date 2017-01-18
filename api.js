@@ -6,7 +6,7 @@ module.exports = function(app) {
     var disarmPayload = "5aa5aa555aa5aa550000000000000000000000000000000000000000000000007cdf000022276a005c82eff7da0d43b401000000c7be0000d21e8ac861821d026c620caf678da6415aacbe1ddb7585b9e152c2f7ab6db3080fc622954727912d8505972589fc3469";
 
     app.get('/alarm/check', function(req, res) {
-            var statusNow = app.storage.getItem("alarm");
+            app.storage.getItem("alarm");
             res.end(statusNow);
     })
 
@@ -44,9 +44,9 @@ module.exports = function(app) {
     })
 
      app.get('/alarm/disarm', function(req, res) {
-        udp(disarmPayload, function (err) {
+        /*udp(disarmPayload, function (err) {
                     console.log(new Date() + " : " + err);
-                 });
+                 });*/
         var newState = 3;
         app.storage.setItem("alarm" , newState);
         res.end("Status Changed");
