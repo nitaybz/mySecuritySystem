@@ -12,42 +12,44 @@ module.exports = function(app) {
 
     app.get('/alarm/arm/:state', function(req, res) {
         var updateState = function(app) {
-            var newStatus = app.storage.setItem("alarm" , newState);
+            app.storage.setItem("alarm" , newState);
             res.end('"Status Changed"');
         };
         var newState = req.params.state;
         switch (newState){
             case "stay":
                 newState = 0;
-                updateState(app);
+                
                 udp(disarmPayload, function (err) {
                     console.log(err);
                  });
+                updateState(app);
                 break;
             case "away":
                 newState = 1;
-                updateState(app);
                 udp(fullArmPayload, function (err) {
                     console.log(err);
                  });
+                updateState(app);
                 break;
             case "night":
                 newState = 2;
-                updateState(app);
+                
                 udp(partArmPayload, function (err) {
                     console.log(err);
                  });
+                updateState(app);
                 break;
         }
     })
 
      app.get('/alarm/disarm', function(req, res) {
-        var newState = 3;
         udp(disarmPayload, function (err) {
-                    console.log(err);
+                    console.log(new Date() + " : " + err);
                  });
-        var newStatus = app.storage.setItem("alarm" , newState);
-        res.end('"Status Changed"');
+        var newState = 3;
+        app.storage.setItem("alarm" , newState);
+        res.end("Status Changed");
     })
     
 
