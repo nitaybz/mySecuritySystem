@@ -6,16 +6,16 @@ module.exports = function(app) {
     var disarmPayload = "5aa5aa555aa5aa550000000000000000000000000000000000000000000000007cdf000022276a005c82eff7da0d43b401000000c7be0000d21e8ac861821d026c620caf678da6415aacbe1ddb7585b9e152c2f7ab6db3080fc622954727912d8505972589fc3469";
 
     app.get('/alarm/check', function(req, res) {
-            app.storage.getItem("alarm");
+            var statusNow = app.storage.getItem("alarm");
             res.end(statusNow);
     })
 
     app.get('/alarm/arm/:state', function(req, res) {
+        var newState = req.params.state;
         var updateState = function(app) {
             app.storage.setItem("alarm" , newState);
             res.end('"Status Changed"');
         };
-        var newState = req.params.state;
         switch (newState){
             case "stay":
                 newState = 0;
