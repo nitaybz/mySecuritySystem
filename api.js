@@ -7,13 +7,13 @@ module.exports = function(app) {
 
     app.get('/alarm/check', function(req, res) {
             var statusNow = app.storage.getItem("alarm");
-            res.send(statusNow);
+            res.end(statusNow);
     })
 
     app.get('/alarm/arm/:state', function(req, res) {
         var updateState = function(app) {
             var newStatus = app.storage.setItem("alarm" , newState);
-            res.send('"Status Changed"');
+            res.end('"Status Changed"');
         };
         var newState = req.params.state;
         switch (newState){
@@ -47,7 +47,7 @@ module.exports = function(app) {
                     console.log(err);
                  });
         var newStatus = app.storage.setItem("alarm" , newState);
-        res.send('"Status Changed"');
+        res.end('"Status Changed"');
     })
     
 
