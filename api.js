@@ -18,23 +18,23 @@ module.exports = function(app) {
         };
         switch (newState){
             case "stay":
-                newState = 0;
-                
+                newState = "0";
                 udp(disarmPayload, function (err) {
                     console.log(err);
                  });
                 updateState(app);
                 break;
+                
             case "away":
-                newState = 1;
+                newState = "1";
                 udp(fullArmPayload, function (err) {
                     console.log(err);
                  });
                 updateState(app);
                 break;
-            case "night":
-                newState = 2;
                 
+            case "night":
+                newState = "2";
                 udp(partArmPayload, function (err) {
                     console.log(err);
                  });
@@ -44,12 +44,12 @@ module.exports = function(app) {
     })
 
      app.get('/alarm/disarm', function(req, res) {
-        /*udp(disarmPayload, function (err) {
-                    console.log(new Date() + " : " + err);
-                 });*/
-        var newState = 3;
+        udp(disarmPayload, function (err) {
+                    console.log(err);
+                 });
+        var newState = "3";
         app.storage.setItem("alarm" , newState);
-        res.end("Status Changed");
+        res.end('"Status Changed"');
     })
     
 
